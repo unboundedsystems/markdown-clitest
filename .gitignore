@@ -1,0 +1,10 @@
+*.js
+*.log
+*.map
+*~
+.DS_Store
+\#*
+\.\#*
+dist
+node_modules
+npm-debug.log.*
