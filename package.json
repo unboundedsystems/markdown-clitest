@@ -2,7 +2,10 @@
   "name": "doctest",
   "version": "0.0.1",
   "description": "Unbounded Node.js boilerplate",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
+  "bin": {
+    "doctest": "bin/doctest"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "build:watch": "yarn run clean; yarn run _build:watch",
@@ -13,7 +16,7 @@
     "prepare": "yarn run build",
     "prepush": "yarn run lint",
     "pretest": "yarn run build",
-    "test": "mocha --opts mocha.opts"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -52,6 +55,7 @@
     "nyc": "^12.0.2",
     "should": "^13.2.3",
     "stdout-stderr": "^0.1.9",
+    "string-to-stream": "^2.0.0",
     "tslint": "^5.10.0",
     "typescript": "^3.0.3"
   }
