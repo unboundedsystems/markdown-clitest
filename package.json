@@ -4,8 +4,7 @@
   "description": "Unbounded Node.js boilerplate",
   "main": "dist/index.js",
   "scripts": {
-    "build": "yarn run clean; yarn run _build",
-    "_build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
     "build:watch": "yarn run clean; yarn run _build:watch",
     "_build:watch": "tsc -w -p tsconfig.json",
     "clean": "rm -rf dist",
