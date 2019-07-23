@@ -14,6 +14,12 @@
                 //"-g", "TEST",
                 "--no-timeouts",
             ],
+            "skipFiles": [
+                "<node_internals>/**/async_hooks.js",
+                "<node_internals>/**/domain.js",
+                "<node_internals>/**/inspector_async_hook.js",
+                "<node_internals>/**/next_tick.js"
+            ],
         },
         {
             "type": "node",
@@ -23,6 +29,12 @@
             "preLaunchTask": "build:watch",
             "args": [
                 "../../unbounded/adapt/docs/getting_started"
+            ],
+            "skipFiles": [
+                "<node_internals>/**/async_hooks.js",
+                "<node_internals>/**/domain.js",
+                "<node_internals>/**/inspector_async_hook.js",
+                "<node_internals>/**/next_tick.js"
             ],
 
         }
