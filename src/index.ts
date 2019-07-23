@@ -101,7 +101,7 @@ async function testFile(dt: DocTest, file: string) {
     dt.file = file;
 
     const lines = await readFile(file);
-    const actions = await parseFile(dt, lines);
+    const actions = parseFile(dt, lines);
     await runActions(dt, actions);
 }
 

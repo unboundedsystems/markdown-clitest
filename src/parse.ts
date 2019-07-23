@@ -6,7 +6,7 @@ import { DocTest } from "./doctest";
 import { LineInfo } from "./readFile";
 import { AnyObject } from "./types";
 
-export async function parseFile(dt: DocTest, lines: LineInfo[]) {
+export function parseFile(dt: DocTest, lines: LineInfo[]) {
     if (lines.length === 0) throw new Error(`Parsing file with no lines`);
 
     dt.file = lines[0].filename;

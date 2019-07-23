@@ -67,7 +67,7 @@ export function isActionComplete(action: AnyObject): action is ActionComplete {
     return isAction(action) && action.lines != null;
 }
 
-export async function runActions(dt: DocTest, actions: Action[]) {
+export async function runActions(dt: DocTest, actions: ActionComplete[]) {
     for (const a of actions) {
         switch (a.type) {
             case "command":
