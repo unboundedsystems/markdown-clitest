@@ -1,5 +1,5 @@
 {
-  "name": "doctest",
+  "name": "@unboundedsystems/doctest",
   "version": "0.0.1",
   "description": "Automated testing of command line examples in markdown files",
   "main": "dist/src/index.js",
@@ -13,11 +13,17 @@
     "clean": "rm -rf dist",
     "lint": "tslint --project .",
     "lint-and-fix": "tslint --project . --fix",
+    "prepack": "yarn run build",
     "prepare": "yarn run build",
     "prepush": "yarn run lint",
     "pretest": "yarn run build",
     "test": "mocha"
   },
+  "files": [
+    "bin",
+    "dist/src",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@gitlab.com/unboundedsystems/doctest.git"
