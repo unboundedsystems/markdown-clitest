@@ -9,9 +9,6 @@ import { AnyObject } from "./types";
 export function parseFile(dt: DocTest, lines: LineInfo[]) {
     if (lines.length === 0) throw new Error(`Parsing file with no lines`);
 
-    dt.file = lines[0].filename;
-    dt.info(`Testing file: ${dt.file}`);
-
     let parseState = "text";
     const actions: ActionComplete[] = [];
     let captureAction: ActionComplete | undefined;
