@@ -1,6 +1,6 @@
 {
   "name": "@unboundedsystems/doctest",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Automated testing of command line examples in markdown files",
   "main": "dist/src/index.js",
   "bin": {
