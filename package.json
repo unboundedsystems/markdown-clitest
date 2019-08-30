@@ -17,6 +17,7 @@
     "prepare": "yarn run build",
     "prepush": "yarn run lint",
     "pretest": "yarn run build",
+    "release": "standard-version",
     "test": "mocha"
   },
   "files": [
@@ -73,6 +74,7 @@
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
     "should": "^13.2.3",
+    "standard-version": "^7.0.0",
     "stdout-stderr": "^0.1.9",
     "string-to-stream": "^2.0.0",
     "tslint": "^5.10.0",
