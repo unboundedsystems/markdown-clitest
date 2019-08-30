@@ -48,7 +48,10 @@ export function parseFile(dt: DocTest, lines: LineInfo[]) {
                 switch (lineType.type) {
                     case "codetag": parseState = "capture"; break;
                     default:
-                        console.log(`WARN: doctest ${captureAction.type} not followed by code`);
+                        if (text.trim() !== "") {
+                            // tslint:disable-next-line: no-console
+                            console.log(`WARN: doctest ${captureAction.type} not followed by code`);
+                        }
                         break;
                 }
                 break;
