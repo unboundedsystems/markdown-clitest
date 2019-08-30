@@ -2,17 +2,17 @@ import chalk from "chalk";
 import fs from "fs-extra";
 import path from "path";
 import { runActions } from "./actions";
-import { DocTest, Options } from "./doctest";
+import { CliTest, Options } from "./clitest";
 import { parseFile } from "./parse";
 import { readFile } from "./readFile";
 
 function usage(message: string) {
     // tslint:disable-next-line: no-console
-    console.log(chalk.bold(`Error:` + message));
+    console.log("\n" + chalk.bold(`Error: ${message}`));
     // tslint:disable-next-line: no-console
     console.log(
 `
-Usage: doctest.js [-i] <file.md | directory>
+Usage: markdown-clitest [-i] <file.md | directory>
 
 When used with a single file, it must be a markdown file and only that
 file will be tested.
@@ -71,7 +71,7 @@ async function mdFiles(dir: string) {
     return md.map((f) => path.join(dir, f));
 }
 
-async function testDir(dt: DocTest, dir: string) {
+async function testDir(dt: CliTest, dir: string) {
     const files = await mdFiles(dir);
     if (files.length === 0) throw new Error(`No .md files to process in ${dir}`);
 
@@ -90,13 +90,13 @@ function streamOutput(s) {
         if (done) return;
         buf = buf.toString();
         data += buf;
-        const [ out, doctestout ] = data.split("--DOCTESTINFO--\n");
-        if (doctestout) done = true;
+        const [ out, clitestout ] = data.split("--CLITESTINFO--\n");
+        if (clitestout) done = true;
         process.stdout.write(buf)
     });
 }
 */
-async function testFile(dt: DocTest, file: string) {
+async function testFile(dt: CliTest, file: string) {
     dt.info(`Testing file: ${file}`);
     dt.file = file;
 
@@ -107,7 +107,7 @@ async function testFile(dt: DocTest, file: string) {
 
 async function main() {
     const opts = parseArgs();
-    const dt = new DocTest(opts);
+    const dt = new CliTest(opts);
     await dt.init();
 
     try {

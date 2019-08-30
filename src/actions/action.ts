@@ -1,6 +1,6 @@
 import { InternalError } from "@adpt/utils";
 import { WithRequiredT } from "type-ops";
-import { DocTest } from "../doctest";
+import { CliTest } from "../clitest";
 import { AnyObject } from "../types";
 import { runCommand } from "./command";
 import { fileReplace } from "./file_replace";
@@ -67,13 +67,14 @@ export function isActionComplete(action: AnyObject): action is ActionComplete {
     return isAction(action) && action.lines != null;
 }
 
-export async function runActions(dt: DocTest, actions: ActionComplete[]) {
+export async function runActions(dt: CliTest, actions: ActionComplete[]) {
     for (const a of actions) {
         switch (a.type) {
             case "command":
                 let saved;
                 if (a.params.step) saved = dt.interactive(true);
                 for (const line of a.lines || []) {
+                    // tslint:disable-next-line: no-console
                     if (dt.options.list) console.log(line);
                     else {
                         await runCommand(dt, line, a);

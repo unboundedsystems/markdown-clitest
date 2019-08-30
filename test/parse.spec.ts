@@ -1,9 +1,9 @@
 import should from "should";
-import { DocTest } from "../src/doctest";
+import { CliTest } from "../src/clitest";
 import { readString } from "./testlib";
 
 describe("parseFile", () => {
-    const dt = new DocTest({ filepath: "" });
+    const dt = new CliTest({ filepath: "" });
 
     it("should parse command", async () => {
         const md = [

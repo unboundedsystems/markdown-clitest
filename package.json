@@ -1,10 +1,10 @@
 {
-  "name": "@unboundedsystems/doctest",
+  "name": "markdown-clitest",
   "version": "0.0.2",
-  "description": "Automated testing of command line examples in markdown files",
+  "description": "Test your command line examples in your markdown docs!",
   "main": "dist/src/index.js",
   "bin": {
-    "doctest": "bin/doctest"
+    "markdown-clitest": "bin/markdown-clitest"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -24,16 +24,32 @@
     "dist/src",
     "README.md"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com/unboundedsystems/doctest.git"
-  },
+  "repository": "unboundedsystems/markdown-clitest",
   "author": "Unbounded Systems",
+  "contributors": [
+    {
+      "name": "Mark Terrel",
+      "email": "mark@unbounded.systems",
+      "url": "https://twitter.com/mterrel"
+    }
+  ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://gitlab.com/unboundedsystems/doctest/issues"
+    "url": "https://github.com/unboundedsystems/markdown-clitest/issues"
   },
-  "homepage": "https://gitlab.com/unboundedsystems/doctest#README",
+  "homepage": "https://github.com/unboundedsystems/markdown-clitest#readme",
+  "keywords": [
+    "markdown",
+    "documentation",
+    "docs",
+    "testing",
+    "test",
+    "automate",
+    "cli",
+    "shell",
+    "bash",
+    "md"
+  ],
   "dependencies": {
     "@adpt/utils": "^0.0.3",
     "chalk": "^2.4.1",

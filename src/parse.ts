@@ -2,11 +2,11 @@ import { InternalError } from "@adpt/utils";
 import json5 from "json5";
 import { inspect } from "util";
 import { Action, ActionComplete, isAction, LineType, validateAction } from "./actions";
-import { DocTest } from "./doctest";
+import { CliTest } from "./clitest";
 import { LineInfo } from "./readFile";
 import { AnyObject } from "./types";
 
-export function parseFile(dt: DocTest, lines: LineInfo[]) {
+export function parseFile(dt: CliTest, lines: LineInfo[]) {
     if (lines.length === 0) throw new Error(`Parsing file with no lines`);
 
     let parseState = "text";
@@ -78,6 +78,7 @@ export function parseFile(dt: DocTest, lines: LineInfo[]) {
         }
     }
 
+    // tslint:disable-next-line: no-console
     if (dt.options.list) console.log(`Commands:`);
 
     return actions;
@@ -87,7 +88,7 @@ function parseLine(lineInfo: LineInfo): LineType {
     const line = lineInfo.text;
     switch (true) {
         case /<!--\s*doctest.*-->/.test(line):
-            return parseDoctestComment(lineInfo);
+            return parseClitestComment(lineInfo);
         case /^```/.test(line):
             return { type: "codetag" };
         default:
@@ -99,7 +100,7 @@ function parseLine(lineInfo: LineInfo): LineType {
  * Format of a doctest comment is:
  * <!-- doctest ACTION [JSONPARAMS] -->
  */
-function parseDoctestComment(lineInfo: LineInfo): Action {
+function parseClitestComment(lineInfo: LineInfo): Action {
     const line = lineInfo.text;
     const action: AnyObject = {};
 

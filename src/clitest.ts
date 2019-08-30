@@ -5,9 +5,9 @@ import os from "os";
 import path from "path";
 import { createInterface } from "readline";
 
-const debugCommands = db("doctest:commands");
-const debugOutput = db("doctest:output");
-const debugParse = db("doctest:parse");
+const debugCommands = db("clitest:commands");
+const debugOutput = db("clitest:output");
+const debugParse = db("clitest:parse");
 
 export interface Options {
     cleanup?: boolean;
@@ -29,7 +29,7 @@ const defaultOptions = {
     list: false,
 };
 
-export class DocTest {
+export class CliTest {
     readonly options: Required<Options>;
     commands: WriteFunc = debugCommands;
     output: WriteFunc = debugOutput;
@@ -63,7 +63,7 @@ export class DocTest {
     error(s: string): never {
         // tslint:disable-next-line: no-console
         console.log(chalk.redBright(s));
-        throw new Error(`Doctest failed: ${s}`);
+        throw new Error(`Test failed: ${s}`);
     }
 
     async cleanup() {
@@ -176,5 +176,5 @@ export class DocTest {
 }
 
 async function makeTmpdir() {
-    return fs.mkdtemp(path.join(os.tmpdir(), "doctest-"));
+    return fs.mkdtemp(path.join(os.tmpdir(), "clitest-"));
 }

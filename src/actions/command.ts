@@ -1,8 +1,8 @@
 import execa from "execa";
-import { DocTest } from "../doctest";
+import { CliTest } from "../clitest";
 import { Action } from "./action";
 
-export async function runCommand(dt: DocTest, cmd: string, _action: Action) {
+export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
     // Skip lines that are empty or only whitespace
     if (/^\s*$/.test(cmd)) return;
 
@@ -11,16 +11,16 @@ export async function runCommand(dt: DocTest, cmd: string, _action: Action) {
     await dt.userConfirm("Continue?");
 
     try {
-        const pRet = execa(cmd + ` && echo "--DOCTESTINFO--" && env`,
+        const pRet = execa(cmd + ` && echo "--CLITESTINFO--" && env`,
             { shell: true, cwd: dt.cwd, env: dt.cmdEnv });
         //streamOutput(pRet.stdout);
         //streamOutput(pRet.stderr);
 
         const ret = await pRet;
 
-        const [ stdout, doctestout ] = ret.stdout.split("--DOCTESTINFO--\n");
-        if (!doctestout) throw new Error(`Unable to match doctest output in:\n${ret.stdout}`);
-        dt.updateEnv(doctestout, true);
+        const [ stdout, clitestout ] = ret.stdout.split("--CLITESTINFO--\n");
+        if (!clitestout) throw new Error(`Unable to match clitest output in:\n${ret.stdout}`);
+        dt.updateEnv(clitestout, true);
 
         dt.output(stdout);
         dt.output(ret.stderr);

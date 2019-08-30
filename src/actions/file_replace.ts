@@ -1,9 +1,9 @@
 import fs from "fs-extra";
 import path from "path";
-import { DocTest } from "../doctest";
+import { CliTest } from "../clitest";
 import { ActionComplete } from "./action";
 
-export async function fileReplace(dt: DocTest, action: ActionComplete) {
+export async function fileReplace(dt: CliTest, action: ActionComplete) {
     const content = action.lines.join("\n") + "\n";
     dt.commands(`\nCWD: ${dt.cwd}`);
     dt.commands(`Replacing file: ${action.params.file} with:\n\n${content}`);
