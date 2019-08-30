@@ -1,6 +1,6 @@
 # Markdown CLI Test
 
-Test all the CLI commands and exmaples in your Markdown docs!
+Test all the CLI commands and examples in your Markdown docs!
 
 ## Quick Start
 
