@@ -62,7 +62,7 @@ Removing temp dir: /tmp/clitest-bMpIIS
 ```console
 git checkout master
 git pull origin master
-yarn run standard-version
+yarn run release
 git push --follow-tags origin master
 npm publish
 ```
