@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adpt/utils@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@adpt/utils/-/utils-0.0.3.tgz#31ac927ec8b01b1332b4a0b5dcece1b2b8319aae"
-  integrity sha512-zKfFbEtAOflVgYuEw04lO1hZ0tqNd4nkPmfq4OrtxLDv5SBabJRhHdO3KFhSROvGBbkm6RHyYF71p+tCVd3zSw==
+"@adpt/utils@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@adpt/utils/-/utils-0.0.5.tgz#d864295dd470adcb7b5caa719b0d9c2d689c2e9b"
+  integrity sha512-P/TnrKJDqa/8P3dWlD04pdLNDho5t1GQnQIRDsFp73PEi8ZH0whpRX9H7hcik3TTiaMMBbmSOK8dSlt5jFNX2Q==
   dependencies:
     "@usys/collections-ts" "^0.0.2"
     decamelize "^2.0.0"
