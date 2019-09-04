@@ -113,13 +113,6 @@
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.5.tgz#b14efa8852b7768d898906613c23f688713e02cd"
   integrity sha512-Q1y515GcOdTHgagaVFhHnIFQ38ygs/kmxdNpvpou+raI9UO3YZcHDngBSYKQklcKlvA7iuQlmIKbzvmxcOE9CQ==
 
-"@types/execa@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@types/execa/-/execa-2.0.0.tgz#4dd5523520c51834bf8d0c280f460814e5238281"
-  integrity sha512-aBnkJ0r3khaZkHzu9pDZeWXrDg1N/ZtDGRQkK+KIqNVvvTvW+URXMUHQQCQMYdb2GPrcwu9Fq6l9iiT+pirIbg==
-  dependencies:
-    execa "*"
-
 "@types/fs-extra@8.0.0":
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-8.0.0.tgz#d3e2c313ca29f95059f198dd60d1f774642d4b25"
@@ -754,7 +747,7 @@ eventemitter2@^5.0.1:
   resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-5.0.1.tgz#6197a095d5fb6b57e8942f6fd7eaad63a09c9452"
   integrity sha1-YZegldX7a1folC9v1+qtY6CclFI=
 
-execa@*, execa@2.0.4:
+execa@2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/execa/-/execa-2.0.4.tgz#2f5cc589c81db316628627004ea4e37b93391d8e"
   integrity sha512-VcQfhuGD51vQUQtKIq2fjGDLDbL6N1DTQVpYzxZ7LPIXw3HqTuIz6uxRmpV1qf8i31LHf2kjiaGI+GdHwRgbnQ==
