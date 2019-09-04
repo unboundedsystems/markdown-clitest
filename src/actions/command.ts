@@ -1,5 +1,5 @@
 import execa from "execa";
-import { CliTest } from "../clitest";
+import { CliTest, ConfirmAction } from "../clitest";
 import { Action } from "./action";
 
 export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
@@ -8,7 +8,11 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
 
     dt.commands(`\nCWD: ${dt.cwd}`);
     dt.commands(`Running: ${cmd}`);
-    await dt.userConfirm("Continue?");
+    const confirm = await dt.userConfirm("Continue?");
+    if (confirm === ConfirmAction.skip) {
+        dt.info(`SKIPPING: ${cmd}`);
+        return;
+    }
 
     try {
         const pRet = execa(cmd + ` && echo "--CLITESTINFO--" && env`,
@@ -26,7 +30,7 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
         dt.output(ret.stderr);
 
         if (dt.interactive()) {
-            await dt.userConfirm("Output OK?");
+            await dt.userConfirm("Output OK?", { skipAllowed: false });
         }
 
     } catch (err) {

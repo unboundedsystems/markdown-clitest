@@ -16,6 +16,11 @@ export interface Options {
     list?: boolean;
 }
 
+export enum ConfirmAction {
+    continue = "continue",
+    skip = "skip",
+}
+
 // The supported chalk colors aren't available easily from the TS definitions
 // for that package.
 type ChalkColors = "red" | "green" | "white";
@@ -27,6 +32,16 @@ const defaultOptions = {
     filepath: "",
     interactive: false,
     list: false,
+};
+
+export interface UserConfirmOptions {
+    color?: ChalkColors;
+    skipAllowed?: boolean;
+}
+
+const defaultUserConfirmOptions = {
+    color: "green" as const,
+    skipAllowed: true,
 };
 
 export class CliTest {
@@ -87,29 +102,46 @@ export class CliTest {
         return cur;
     }
 
-    userConfirm(query = "OK?", color: ChalkColors = "green") {
-        if (!this.interactive()) return;
+    async userConfirm(query = "OK?", options: UserConfirmOptions = {}): Promise<ConfirmAction> {
+        const opts = { ...defaultUserConfirmOptions, ...options };
+        if (!this.interactive()) return ConfirmAction.continue;
 
         const rl = createInterface({
             input: process.stdin,
             output: process.stdout,
         });
-        query = chalk[color](query) + " ";
 
-        return new Promise((resolve, reject) => rl.question(query, (ans: string) => {
-            rl.close();
-            switch (ans.toLowerCase()) {
-                case "":
-                case "y":
-                case "yes":
-                    resolve();
-                    break;
+        const inputs = [ "Yes", "No" ];
+        if (opts.skipAllowed) inputs.push("Skip");
 
-                default:
-                    reject("Canceled by user");
-                    break;
+        query = chalk[opts.color](query) + ` [${inputs.join(", ")}] `;
+        try {
+            while (true) {
+                const ans = await new Promise<string>((resolve) => rl.question(query, resolve));
+
+                switch (ans.toLowerCase()) {
+                    case "":
+                    case "y":
+                    case "yes":
+                        return ConfirmAction.continue;
+
+                    case "n":
+                    case "no":
+                        throw new Error("Canceled by user");
+
+                    case "s":
+                    case "skip":
+                        if (opts.skipAllowed) return ConfirmAction.skip;
+                        // Fall through
+
+                    default:
+                        this.info("Invalid response");
+                        break;
+                }
             }
-        }));
+        } finally {
+            rl.close();
+        }
     }
 
     updateEnv(output: string, diff = false): void {
