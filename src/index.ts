@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import program from "commander";
 import fs from "fs-extra";
 import path from "path";
 import { runActions } from "./actions";
@@ -6,56 +7,36 @@ import { CliTest, Options } from "./clitest";
 import { parseFile } from "./parse";
 import { readFile } from "./readFile";
 
-function usage(message: string) {
-    // tslint:disable-next-line: no-console
-    console.log("\n" + chalk.bold(`Error: ${message}`));
-    // tslint:disable-next-line: no-console
-    console.log(
-`
-Usage: markdown-clitest [-i] <file.md | directory>
+function parseArgs(): Options {
+    program
+        .option("-i, --interactive", "Ask for user input at each action")
+        .option("--list", "List actions, but do not run them")
+        .option("--no-cleanup", "Don't remove temporary directory on exit")
+        .arguments("<filepath>");
 
+    // tslint:disable-next-line: no-console
+    program.on("--help", () => console.log(`
 When used with a single file, it must be a markdown file and only that
 file will be tested.
+
 When used with a directory, all markdown files in that directory will be
 tested, ordered with index.md first, followed by the remaining files sorted
 by filename.
-`);
-    return process.exit(1);
-}
+`)
+    );
 
-function parseArgs(): Options {
-    const args = process.argv.slice(2);
-    const opts: Partial<Options> = {};
-    let filepath: string | undefined;
-
-    while (true) {
-        const arg = args.shift();
-        if (!arg) break;
-
-        if (arg.startsWith("-")) {
-            switch (arg) {
-                case "-i":
-                    opts.interactive = true;
-                    break;
-                case "--list":
-                    opts.list = true;
-                    break;
-                case "--nocleanup":
-                    opts.cleanup = false;
-                    break;
-
-                default: usage(`Flag not understood: ${arg}`);
-            }
-        } else {
-            if (filepath) usage(`Too many arguments`);
-            filepath = arg;
-        }
+    program.parse(process.argv);
+    if (program.args.length !== 1) {
+        // tslint:disable-next-line: no-console
+        console.log("\n" + chalk.bold(`Error: Wrong number of arguments\n`));
+        program.help();
     }
-    if (!filepath) return usage(`wrong number of arguments`);
+
+    const [ filepath ] = program.args;
 
     return {
-        ...opts,
-        filepath,
+        ...program.opts(),
+        filepath
     };
 }
 
