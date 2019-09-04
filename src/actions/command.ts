@@ -30,6 +30,7 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
         }
 
     } catch (err) {
-        return dt.error(`\n\nCOMMAND FAILED:\n${err.message}\n`);
+        const msg = `\n\nCOMMAND FAILED:\n${err.all || err.message}\n`;
+        return dt.error(msg);
     }
 }
