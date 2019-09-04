@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/unboundedsystems/markdown-clitest/compare/v0.1.1...v0.1.2) (2019-09-04)
+
+
+### Bug Fixes
+
+* Give more complete output on command error ([66dcde4](https://github.com/unboundedsystems/markdown-clitest/commit/66dcde4))
+* Remove unneeded @types/execa ([df6ac52](https://github.com/unboundedsystems/markdown-clitest/commit/df6ac52))
+* Replace custom parsing with commander ([63ddc6c](https://github.com/unboundedsystems/markdown-clitest/commit/63ddc6c))
+
+
+### Features
+
+* Allow skipping actions in interactive mode ([c7ca563](https://github.com/unboundedsystems/markdown-clitest/commit/c7ca563))
+
 ### [0.1.1](https://github.com/unboundedsystems/markdown-clitest/compare/v0.1.0...v0.1.1) (2019-08-30)
 
 ## [0.1.0](https://github.com/unboundedsystems/markdown-clitest/compare/v0.0.2...v0.1.0) (2019-08-30)
