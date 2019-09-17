@@ -2,23 +2,23 @@
 # yarn lockfile v1
 
 
-"@adpt/utils@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@adpt/utils/-/utils-0.0.5.tgz#d864295dd470adcb7b5caa719b0d9c2d689c2e9b"
-  integrity sha512-P/TnrKJDqa/8P3dWlD04pdLNDho5t1GQnQIRDsFp73PEi8ZH0whpRX9H7hcik3TTiaMMBbmSOK8dSlt5jFNX2Q==
+"@adpt/utils@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@adpt/utils/-/utils-0.0.6.tgz#c084bafe50826af12e3618731006413773ed2f93"
+  integrity sha512-ccKYalKMTL5nmtZlgBrvuY3MNvvKJKzlplbr7gTkDjSBXLhnB7wdaFIz8E/Lv/8p6zP0zUBGWo6KxXruPbwZxw==
   dependencies:
     "@usys/collections-ts" "^0.0.2"
     decamelize "^2.0.0"
     deep-diff "^1.0.2"
     eventemitter2 "^5.0.1"
-    execa "^0.10.0"
-    fs-extra "^6.0.1"
+    execa "^2.0.4"
+    fs-extra "^8.1.0"
     json-stable-stringify "^1.0.1"
-    lodash "^4.17.11"
+    lodash "^4.17.15"
     node-graceful "^0.3.1"
     ts-custom-error "^3.1.1"
-    tslib "^1.9.3"
-    type-ops "^3.0.1"
+    tslib "^1.10.0"
+    type-ops "^3.0.3"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5":
   version "7.5.5"
@@ -752,7 +752,7 @@ eventemitter2@^5.0.1:
   resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-5.0.1.tgz#6197a095d5fb6b57e8942f6fd7eaad63a09c9452"
   integrity sha1-YZegldX7a1folC9v1+qtY6CclFI=
 
-execa@2.0.4:
+execa@2.0.4, execa@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/execa/-/execa-2.0.4.tgz#2f5cc589c81db316628627004ea4e37b93391d8e"
   integrity sha512-VcQfhuGD51vQUQtKIq2fjGDLDbL6N1DTQVpYzxZ7LPIXw3HqTuIz6uxRmpV1qf8i31LHf2kjiaGI+GdHwRgbnQ==
@@ -766,19 +766,6 @@ execa@2.0.4:
     p-finally "^2.0.0"
     signal-exit "^3.0.2"
     strip-final-newline "^2.0.0"
-
-execa@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/execa/-/execa-0.10.0.tgz#ff456a8f53f90f8eccc71a96d11bdfc7f082cb50"
-  integrity sha512-7XOMnz8Ynx1gGo/3hyV9loYNPWM94jG3+3T3Y8tsfSstFmETmENCMU/A/zj8Lyaj1lkgEepKepvd6240tBRvlw==
-  dependencies:
-    cross-spawn "^6.0.0"
-    get-stream "^3.0.0"
-    is-stream "^1.1.0"
-    npm-run-path "^2.0.0"
-    p-finally "^1.0.0"
-    signal-exit "^3.0.0"
-    strip-eof "^1.0.0"
 
 execa@^1.0.0:
   version "1.0.0"
@@ -861,15 +848,6 @@ fs-access@1.0.1:
   dependencies:
     null-check "^1.0.0"
 
-fs-extra@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-6.0.1.tgz#8abc128f7946e310135ddc93b98bddb410e7a34b"
-  integrity sha512-GnyIkKhhzXZUWFCaJzvyDLEEgDkPfb4/TPvJCJVuS8MWZgoSsErf++QpiAlDnKFcqhRlm+tIOcencCjyJE6ZCA==
-  dependencies:
-    graceful-fs "^4.1.2"
-    jsonfile "^4.0.0"
-    universalify "^0.1.0"
-
 fs-extra@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-8.1.0.tgz#49d43c45a88cd9677668cb7be1b46efdb8d2e1c0"
@@ -914,11 +892,6 @@ get-stdin@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
   integrity sha1-uWjGsKBDhDJJAui/Gl3zJXmkUP4=
-
-get-stream@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
-  integrity sha1-jpQ9E1jcN1VQVOy+LtsFqhdO3hQ=
 
 get-stream@^4.0.0:
   version "4.1.0"
@@ -1387,7 +1360,7 @@ lodash.templatesettings@^4.0.0:
   dependencies:
     lodash._reinterpolate "^3.0.0"
 
-lodash@^4.17.11, lodash@^4.17.13, lodash@^4.2.1:
+lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.15, lodash@^4.2.1:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -2460,7 +2433,7 @@ ts-custom-error@^3.1.1:
   resolved "https://registry.yarnpkg.com/ts-custom-error/-/ts-custom-error-3.1.1.tgz#d30c7415461dac93dc2cc9e9eb2dae92e6423901"
   integrity sha512-f/syoy+pTE4z82qaiRuthEeZtCGNKzlfs0Zc8jpQFcz/CYMaFSwFSdfFt1sSFnPlDLOEm7RCROdIxZ44N8UlwA==
 
-tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.2, tslib@^1.9.3:
+tslib@^1.10.0, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.2:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
@@ -2491,7 +2464,7 @@ tsutils@^2.29.0:
   dependencies:
     tslib "^1.8.1"
 
-type-ops@^3.0.1:
+type-ops@^3.0.1, type-ops@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/type-ops/-/type-ops-3.0.3.tgz#fbcce4129e0f3f10975732ad8bdc7798824d593a"
   integrity sha512-ox+din2lhO8UmQ83rwPvsmuAvz85oAD9VeiQMnoBeXRD+a0kB6EEyS4kVaunmdj6V9QYGs9yhMpZb+Muma7UZA==
