@@ -57,8 +57,8 @@
     "commander": "^3.0.1",
     "debug": "^4.1.0",
     "fs-extra": "^8.1.0",
-    "json5": "^2.1.0",
-    "source-map-support": "^0.5.6",
+    "json5": "^2.1.1",
+    "source-map-support": "^0.5.16",
     "ts-custom-error": "^3.1.1",
     "tslib": "^1.9.2",
     "type-ops": "^3.0.1"
@@ -68,8 +68,8 @@
     "@types/fs-extra": "8.0.1",
     "@types/json5": "0.0.30",
     "@types/mocha": "5.2.7",
-    "@types/node": "12.12.14",
-    "execa": "2.1.0",
+    "@types/node": "12.12.17",
+    "execa": "3.4.0",
     "mocha": "6.2.2",
     "nyc": "14.1.1",
     "should": "13.2.3",
@@ -77,6 +77,6 @@
     "stdout-stderr": "0.1.9",
     "string-to-stream": "3.0.1",
     "tslint": "5.20.1",
-    "typescript": "3.7.2"
+    "typescript": "3.7.3"
   }
 }

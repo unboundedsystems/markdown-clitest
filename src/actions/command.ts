@@ -16,7 +16,7 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
 
     try {
         const pRet = execa(cmd + ` && echo "--CLITESTINFO--" && env`,
-            { shell: true, cwd: dt.cwd, env: dt.cmdEnv });
+            { all: true, shell: true, cwd: dt.cwd, env: dt.cmdEnv });
         //streamOutput(pRet.stdout);
         //streamOutput(pRet.stderr);
 
