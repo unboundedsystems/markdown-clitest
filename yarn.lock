@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@adpt/utils@^0.0.6":
+"@adpt/utils@0.0.6":
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/@adpt/utils/-/utils-0.0.6.tgz#c084bafe50826af12e3618731006413773ed2f93"
   integrity sha512-ccKYalKMTL5nmtZlgBrvuY3MNvvKJKzlplbr7gTkDjSBXLhnB7wdaFIz8E/Lv/8p6zP0zUBGWo6KxXruPbwZxw==

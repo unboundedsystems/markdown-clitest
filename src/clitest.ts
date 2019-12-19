@@ -1,3 +1,4 @@
+import { UserError } from "@adpt/utils";
 import chalk from "chalk";
 import db from "debug";
 import fs from "fs-extra";
@@ -76,9 +77,7 @@ export class CliTest {
     }
 
     error(s: string): never {
-        // tslint:disable-next-line: no-console
-        console.log(chalk.redBright(s));
-        throw new Error(`Test failed: ${s}`);
+        throw new UserError(`Test failed: ${s}`);
     }
 
     async cleanup() {
@@ -127,7 +126,7 @@ export class CliTest {
 
                     case "n":
                     case "no":
-                        throw new Error("Canceled by user");
+                        throw new UserError("Canceled by user");
 
                     case "s":
                     case "skip":

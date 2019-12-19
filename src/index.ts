@@ -1,7 +1,9 @@
+import { isUserError } from "@adpt/utils";
 import chalk from "chalk";
 import program from "commander";
 import fs from "fs-extra";
 import path from "path";
+import { isError } from "util";
 import { runActions } from "./actions";
 import { CliTest, Options } from "./clitest";
 import { parseFile } from "./parse";
@@ -87,7 +89,13 @@ async function main() {
 }
 
 main().catch((err) => {
+    const msg = isUserError(err) ? err.message :
+        isError(err) ? err.stack :
+        err.toString();
+    const idx = msg.indexOf("\n");
+    const first = idx > 1 ? msg.slice(0, idx + 1) : msg;
+    const rest = msg.length > first.length ? msg.slice(idx + 1) : "";
     // tslint:disable-next-line: no-console
-    console.error(err);
+    console.error(chalk.redBright(first) + rest);
     process.exit(1);
 });
