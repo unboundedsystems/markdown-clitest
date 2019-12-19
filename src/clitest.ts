@@ -54,6 +54,7 @@ export class CliTest {
     cmdEnv: NodeJS.ProcessEnv;
     cwd = "";
     file: string | undefined;
+    lastCommandOutput: string | undefined;
     origPath: string;
     tmpDir: string;
 

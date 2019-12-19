@@ -4,13 +4,14 @@ import { CliTest } from "../clitest";
 import { AnyObject } from "../types";
 import { runCommand } from "./command";
 import { fileReplace } from "./file_replace";
+import { checkOutput } from "./output";
 
 const commonParamsDef = {
     step: "optional",
 };
 
 const actionsDef = {
-    "output": commonParamsDef,
+    "output": { ...commonParamsDef, matchRegex: "required" },
     "command": commonParamsDef,
     "file-replace": { ...commonParamsDef, file: "required" },
 };
@@ -69,6 +70,9 @@ export function isActionComplete(action: AnyObject): action is ActionComplete {
 
 export async function runActions(dt: CliTest, actions: ActionComplete[]) {
     for (const a of actions) {
+        const lastOutput = dt.lastCommandOutput;
+        dt.lastCommandOutput = undefined;
+
         switch (a.type) {
             case "command":
                 let saved;
@@ -86,6 +90,10 @@ export async function runActions(dt: CliTest, actions: ActionComplete[]) {
             case "file-replace":
                 if (!isActionComplete(a)) throw new InternalError(`file-replace with no lines`);
                 await fileReplace(dt, a);
+                break;
+
+            case "output":
+                await checkOutput(dt, a, lastOutput);
                 break;
 
             default:

@@ -24,6 +24,7 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
     let stdoutDone = false;
     let buf = "";
     const envLines: string[] = [];
+    const stdoutLines: string[] = [];
 
     function processLine(line: string) {
         if (line === marker + "\n") {
@@ -31,6 +32,7 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
         } else if (stdoutDone) {
             envLines.push(line);
         } else {
+            stdoutLines.push(line);
             if (dt.interactive() || debugOutput.enabled) {
                 process.stdout.write(line);
             }
@@ -73,6 +75,9 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
         if (dt.interactive()) {
             await dt.userConfirm("Output OK?", { skipAllowed: false });
         }
+
+        stdoutLines.pop(); // Remove final \n we inserted
+        dt.lastCommandOutput = stdoutLines.join("");
 
     } catch (err) {
         const msg = `\n\nCOMMAND FAILED:\n${err.all || err.message}\n`;

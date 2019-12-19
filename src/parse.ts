@@ -38,8 +38,15 @@ export function parseFile(dt: CliTest, lines: LineInfo[]) {
                     case "codetag":
                         break;
 
+                    case "output":
+                        actions.push({
+                            ...lineType,
+                            lines: [],
+                        });
+                        break;
+
                     default:
-                        throw new InternalError(`Unhandled action type '${lineType.type}'`);
+                        throw new InternalError(`Unhandled action type '${(lineType as any).type}'`);
                 }
                 break;
 
