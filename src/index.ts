@@ -61,22 +61,6 @@ async function testDir(dt: CliTest, dir: string) {
     }
 }
 
-/*
-function streamOutput(s) {
-    if (!options.interactive && !debugOutput.enabled) return;
-    let done = false;
-    let data = "";
-
-    s.on("data", (buf) => {
-        if (done) return;
-        buf = buf.toString();
-        data += buf;
-        const [ out, clitestout ] = data.split("--CLITESTINFO--\n");
-        if (clitestout) done = true;
-        process.stdout.write(buf)
-    });
-}
-*/
 async function testFile(dt: CliTest, file: string) {
     dt.info(`Testing file: ${file}`);
     dt.file = file;

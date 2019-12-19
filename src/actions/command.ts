@@ -1,6 +1,13 @@
+import db from "debug";
+// tslint:disable-next-line: no-var-requires
+const devNull = require("dev-null");
 import execa from "execa";
 import { CliTest, ConfirmAction } from "../clitest";
 import { Action } from "./action";
+
+const debugOutput = db("clitest:output");
+
+const marker = "--CLITESTINFO--";
 
 export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
     // Skip lines that are empty or only whitespace
@@ -14,20 +21,54 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
         return;
     }
 
+    let stdoutDone = false;
+    let buf = "";
+    const envLines: string[] = [];
+
+    function processLine(line: string) {
+        if (line === marker + "\n") {
+            stdoutDone = true;
+        } else if (stdoutDone) {
+            envLines.push(line);
+        } else {
+            if (dt.interactive() || debugOutput.enabled) {
+                process.stdout.write(line);
+            }
+        }
+    }
+
     try {
-        const pRet = execa(cmd + ` && echo "--CLITESTINFO--" && env`,
+        const pRet = execa(cmd + ` && printf "\n${marker}\n" && env`,
             { all: true, shell: true, cwd: dt.cwd, env: dt.cmdEnv });
-        //streamOutput(pRet.stdout);
-        //streamOutput(pRet.stderr);
+        if (pRet.stdout == null) {
+            throw new Error(`execa stdout stream is null??`);
+        }
+        if (pRet.stderr == null) {
+            throw new Error(`execa stdout stream is null??`);
+        }
 
-        const ret = await pRet;
+        pRet.stderr.pipe((dt.interactive() || debugOutput.enabled) ? process.stderr : devNull());
 
-        const [ stdout, clitestout ] = ret.stdout.split("--CLITESTINFO--\n");
-        if (!clitestout) throw new Error(`Unable to match clitest output in:\n${ret.stdout}`);
-        dt.updateEnv(clitestout, true);
+        pRet.stdout.on("data", (chunk) => {
+            buf += chunk.toString();
+            while (buf.length) {
+                const idx = buf.indexOf("\n");
+                if (idx === -1) return;
 
-        dt.output(stdout);
-        dt.output(ret.stderr);
+                const line = buf.slice(0, idx + 1);
+                buf = buf.slice(idx + 1);
+
+                processLine(line);
+            }
+        });
+        pRet.stdout.on("end", () => {
+            if (buf.length > 0) processLine(buf);
+        });
+
+        await pRet;
+
+        const env = envLines.join("");
+        dt.updateEnv(env, true);
 
         if (dt.interactive()) {
             await dt.userConfirm("Output OK?", { skipAllowed: false });
