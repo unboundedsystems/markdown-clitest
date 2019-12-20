@@ -14,7 +14,7 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
     if (/^\s*$/.test(cmd)) return;
 
     dt.commands(`\nCWD: ${dt.cwd}`);
-    dt.commands(`Running: ${cmd}`);
+    dt.commands(`Command: ${cmd}`);
     const confirm = await dt.userConfirm("Continue?");
     if (confirm === ConfirmAction.skip) {
         dt.info(`SKIPPING: ${cmd}`);
@@ -40,8 +40,13 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
     }
 
     try {
-        const pRet = execa(cmd + ` && printf "\n${marker}\n" && env`,
-            { all: true, shell: true, cwd: dt.cwd, env: dt.cmdEnv });
+        const pRet = execa(cmd + ` && printf "\n${marker}\n" && env`, {
+            all: true,
+            cwd: dt.cwd,
+            env: dt.cmdEnv,
+            shell: true,
+            stripFinalNewline: false,
+        });
         if (pRet.stdout == null) {
             throw new Error(`execa stdout stream is null??`);
         }
