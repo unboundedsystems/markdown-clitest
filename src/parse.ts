@@ -38,6 +38,7 @@ export function parseFile(dt: CliTest, lines: LineInfo[]) {
                     case "codetag":
                         break;
 
+                    case "exec":
                     case "output":
                         actions.push({
                             ...lineType,

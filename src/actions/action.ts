@@ -3,6 +3,7 @@ import { WithRequiredT } from "type-ops";
 import { CliTest } from "../clitest";
 import { AnyObject } from "../types";
 import { runCommand } from "./command";
+import { exec } from "./exec";
 import { fileReplace } from "./file_replace";
 import { checkOutput } from "./output";
 
@@ -11,9 +12,10 @@ const commonParamsDef = {
 };
 
 const actionsDef = {
-    "output": { ...commonParamsDef, matchRegex: "required" },
     "command": commonParamsDef,
+    "exec": { ...commonParamsDef, cmd: "required", matchRegex: "optional" },
     "file-replace": { ...commonParamsDef, file: "required" },
+    "output": { ...commonParamsDef, matchRegex: "required" },
 };
 
 export type ActionType = keyof typeof actionsDef;
@@ -72,32 +74,39 @@ export async function runActions(dt: CliTest, actions: ActionComplete[]) {
     for (const a of actions) {
         const lastOutput = dt.lastCommandOutput;
         dt.lastCommandOutput = undefined;
+        let saved: boolean | undefined;
+        if (a.params.step) saved = dt.interactive(true);
 
-        switch (a.type) {
-            case "command":
-                let saved;
-                if (a.params.step) saved = dt.interactive(true);
-                for (const line of a.lines || []) {
-                    // tslint:disable-next-line: no-console
-                    if (dt.options.list) console.log(line);
-                    else {
-                        await runCommand(dt, line, a);
+        try {
+            switch (a.type) {
+                case "command":
+                    for (const line of a.lines || []) {
+                        // tslint:disable-next-line: no-console
+                        if (dt.options.list) console.log(line);
+                        else {
+                            await runCommand(dt, line, a);
+                        }
                     }
-                }
-                if (a.params.step) dt.interactive(saved);
-                break;
+                    break;
 
-            case "file-replace":
-                if (!isActionComplete(a)) throw new InternalError(`file-replace with no lines`);
-                await fileReplace(dt, a);
-                break;
+                case "exec":
+                    await exec(dt, a, lastOutput);
+                    break;
 
-            case "output":
-                await checkOutput(dt, a, lastOutput);
-                break;
+                case "file-replace":
+                    if (!isActionComplete(a)) throw new InternalError(`file-replace with no lines`);
+                    await fileReplace(dt, a);
+                    break;
 
-            default:
-                throw new Error(`Unrecognized action ${a.type}`);
+                case "output":
+                    await checkOutput(dt, a, lastOutput);
+                    break;
+
+                default:
+                    throw new Error(`Unrecognized action ${a.type}`);
+            }
+        } finally {
+            if (saved !== undefined) dt.interactive(saved);
         }
     }
 }
