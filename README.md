@@ -1,16 +1,22 @@
+[![Build Status](https://travis-ci.com/unboundedsystems/markdown-clitest.svg?branch=master)](https://travis-ci.com/unboundedsystems/markdown-clitest)
+[![NPM version](https://img.shields.io/npm/v/markdown-clitest?color=blue)](https://www.npmjs.com/package/markdown-clitest)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
 # Markdown CLI Test
 
 Test all the CLI commands and examples in your Markdown docs!
 
-## Quick Start
-
-**Install markdown-clitest:**
+## Install `markdown-clitest`
 
 ```console
 npm install -g markdown-clitest
 ```
 
-**Add comments in your Markdown files for the code blocks you want to test:**
+## Using `markdown-clitest`
+
+### Add comments in your Markdown files that tell `markdown-clitest` what to test
+
+**README.md:**
 
 ````markdown
 # Instructions for generating a random quote
@@ -38,7 +44,9 @@ wikiquote random "Steve Jobs"
 <!-- doctest output { matchRegex: "-- Steve Jobs" } -->
 ````
 
-**Then run `markdown-clitest` on your Markdown file:**
+### Then run `markdown-clitest` on your Markdown file
+
+`markdown-clitest` looks for the embedded test comments in your Markdown, executing commands you tag, checking output, and running other tests.
 
 This example uses the `-i` flag to run in interactive mode.
 
@@ -111,10 +119,23 @@ by filename.
 
 ## Releasing markdown-clitest
 
+This project uses [Conventional Commits](https://conventionalcommits.org) with [`standard-version`](https://github.com/conventional-changelog/standard-version) as the tool to manage releases.
+
+> **NOTE**
+>
+> `standard-version` appears to always use release type `patch` prior to v1.0.0, so the `--release-as` option is required for now.
+
+To create a release:
+
 ```console
 git checkout master
 git pull origin master
-yarn run release
+
+# Confirm what steps the release will perform
+yarn run release --dry-run --release-as minor
+
+# Create the release and publish
+yarn run release --release-as minor
 git push --follow-tags origin master
 yarn publish
 ```
