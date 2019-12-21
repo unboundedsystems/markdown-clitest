@@ -11,9 +11,9 @@ export async function checkOutput(dt: CliTest, action: Action, lastOutput: strin
     }
     let regex;
     try {
-        regex = RegExp(reString);
+        regex = RegExp(reString, action.params.regexFlags);
     } catch (err) {
-        throw new Error(`Invalid regular expression in 'output' action: ${err.message}`);
+        throw new Error(`Invalid regular expression or flags in 'output' action: ${err.message}`);
     }
 
     if (!regex.test(lastOutput)) {

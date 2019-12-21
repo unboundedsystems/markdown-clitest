@@ -23,7 +23,17 @@ describe("output action", () => {
             params: { step: false, matchRegex: "(foo" },
         };
         await should(checkOutput(dt, action, "some output"))
-            .be.rejectedWith(/Invalid regular expression in 'output' action/);
+            .be.rejectedWith(/Invalid regular expression or flags in 'output' action.*Unterminated group/);
+    });
+
+    it("should error with invalid regex flags", async () => {
+        const dt = new CliTest({ filepath: "" });
+        const action: Action = {
+            type: "output",
+            params: { step: false, matchRegex: "foo", regexFlags: "Q" },
+        };
+        await should(checkOutput(dt, action, "some output"))
+            .be.rejectedWith(/Invalid regular expression or flags in 'output' action.*Invalid flags/);
     });
 
     it("should error if match fails", async () => {
@@ -75,6 +85,21 @@ Output:
             "printf 'Some output\\n\\n'",
             "```",
             '<!-- doctest output { matchRegex: "^Some output\\\\n\\\\n$" } -->',
+            "more text",
+        ].join("\n");
+        const actions = await readString(dt, md);
+        await runActions(dt, actions);
+    });
+
+    it("should allow setting regex flags", async () => {
+        const dt = new CliTest({ filepath: "" });
+        const md = [
+            "Some text",
+            "<!-- doctest command -->",
+            "```",
+            "printf 'Line one\\nline TWO\\n'",
+            "```",
+            '<!-- doctest output { matchRegex: "one.*two", regexFlags: "is" } -->',
             "more text",
         ].join("\n");
         const actions = await readString(dt, md);

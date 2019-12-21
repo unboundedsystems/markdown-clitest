@@ -13,9 +13,9 @@ const commonParamsDef = {
 
 const actionsDef = {
     "command": commonParamsDef,
-    "exec": { ...commonParamsDef, cmd: "required", matchRegex: "optional" },
+    "exec": { ...commonParamsDef, cmd: "required", matchRegex: "optional", regexFlags: "optional" },
     "file-replace": { ...commonParamsDef, file: "required" },
-    "output": { ...commonParamsDef, matchRegex: "required" },
+    "output": { ...commonParamsDef, matchRegex: "required", regexFlags: "optional" },
 };
 
 export type ActionType = keyof typeof actionsDef;
