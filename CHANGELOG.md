@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/unboundedsystems/markdown-clitest/compare/v0.2.0...v0.3.0) (2019-12-21)
+
+
+### Features
+
+* Add regexFlags to output and exec actions ([f1eb0c3](https://github.com/unboundedsystems/markdown-clitest/commit/f1eb0c36252fb5a3edc5736dd6d354dc4ee8a346))
+
 ## [0.2.0](https://github.com/unboundedsystems/markdown-clitest/compare/v0.1.3...v0.2.0) (2019-12-20)
 
 

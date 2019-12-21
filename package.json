@@ -1,6 +1,6 @@
 {
   "name": "markdown-clitest",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Test your command line examples in your markdown docs!",
   "main": "dist/src/index.js",
   "bin": {
