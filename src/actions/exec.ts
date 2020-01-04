@@ -1,7 +1,7 @@
-import { UserError } from "@adpt/utils";
 import db from "debug";
 import execa from "execa";
 import { CliTest, ConfirmAction } from "../clitest";
+import { ActionError } from "../error";
 import { Action } from "./action";
 import { checkOutput } from "./output";
 
@@ -22,11 +22,11 @@ export async function exec(dt: CliTest, action: Action, lastOutput: string | und
 
     } else if (Array.isArray(cmd)) {
         if (cmd.length === 0) {
-            throw new UserError(`Action 'exec' parameter 'cmd' array cannot be length 0`);
+            throw new ActionError(action, `Action 'exec' parameter 'cmd' array cannot be length 0`);
         }
         for (const c of cmd) {
             if (typeof c !== "string") {
-                throw new UserError(`Action 'exec' parameter 'cmd' has non-string element in array`);
+                throw new ActionError(action, `Action 'exec' parameter 'cmd' has non-string element in array`);
             }
         }
         cmdStr = cmd.join(" ");
@@ -34,7 +34,7 @@ export async function exec(dt: CliTest, action: Action, lastOutput: string | und
         args = cmd.slice(1);
 
     } else {
-        throw new UserError(`Action 'exec' has invalid cmd parameter '${cmd}'. Must be string or array of string.`);
+        throw new ActionError(action, `Action 'exec' has invalid cmd parameter '${cmd}'. Must be string or array of string.`);
     }
 
     dt.commands(`\nCWD: ${dt.cwd}`);

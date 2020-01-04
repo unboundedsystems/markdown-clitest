@@ -5,21 +5,27 @@ import { CliTest } from "../../src/clitest";
 import { readString } from "../testlib";
 
 describe("output action", () => {
+    const actionLineNum = 1;
+    const filename = "file.md";
 
     it("should error with no output", async () => {
         const dt = new CliTest({ filepath: "" });
         const action: Action = {
             type: "output",
+            filename,
+            actionLineNum,
             params: { step: false, matchRegex: "test" },
         };
         await should(checkOutput(dt, action, undefined))
-            .be.rejectedWith(/'output' action must follow a 'command' action/);
+            .be.rejectedWith("A doctest 'output' action must follow a 'command' action [file.md:1]");
     });
 
     it("should error with invalid regex", async () => {
         const dt = new CliTest({ filepath: "" });
         const action: Action = {
             type: "output",
+            filename,
+            actionLineNum,
             params: { step: false, matchRegex: "(foo" },
         };
         await should(checkOutput(dt, action, "some output"))
@@ -30,6 +36,8 @@ describe("output action", () => {
         const dt = new CliTest({ filepath: "" });
         const action: Action = {
             type: "output",
+            filename,
+            actionLineNum,
             params: { step: false, matchRegex: "foo", regexFlags: "Q" },
         };
         await should(checkOutput(dt, action, "some output"))
@@ -40,6 +48,8 @@ describe("output action", () => {
         const dt = new CliTest({ filepath: "" });
         const action: Action = {
             type: "output",
+            filename,
+            actionLineNum,
             params: { step: false, matchRegex: "foo" },
         };
         await should(checkOutput(dt, action, "some output"))

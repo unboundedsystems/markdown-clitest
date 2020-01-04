@@ -14,7 +14,7 @@ export function parseFile(dt: CliTest, lines: LineInfo[]) {
     let captureAction: ActionComplete | undefined;
 
     for (const lineInfo of lines) {
-        const { text, lineNum }  = lineInfo;
+        const { filename, lineNum, text }  = lineInfo;
         const oldParseState = parseState;
         const lineType = parseLine(lineInfo);
         dt.parse(`${lineNum}: state=${parseState} type=${lineType.type} ${text}`);
@@ -30,6 +30,8 @@ export function parseFile(dt: CliTest, lines: LineInfo[]) {
                         parseState = "pre-capture";
                         captureAction = {
                             ...lineType,
+                            actionLineNum: lineNum,
+                            filename,
                             lines: [],
                         };
                         break;
@@ -42,6 +44,8 @@ export function parseFile(dt: CliTest, lines: LineInfo[]) {
                     case "output":
                         actions.push({
                             ...lineType,
+                            actionLineNum: lineNum,
+                            filename,
                             lines: [],
                         });
                         break;

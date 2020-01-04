@@ -32,12 +32,16 @@ function withCapture(f: Mocha.AsyncFunc): Mocha.AsyncFunc {
 }
 
 describe("exec action", () => {
+    const actionLineNum = 1;
+    const filename = "file.md";
 
     it("should run string cmd with shell", withCapture(async () => {
         db.enable("clitest:output");
         const dt = new CliTest({ filepath: "" });
         const action: Action = {
             type: "exec",
+            filename,
+            actionLineNum,
             params: { step: false, cmd: "echo 'Output line'; exit 5" },
         };
         await should(exec(dt, action, undefined))
@@ -53,6 +57,8 @@ Output line
         const dt = new CliTest({ filepath: "" });
         const action: Action = {
             type: "exec",
+            filename,
+            actionLineNum,
             params: { step: false, cmd: ["echo", "Some output"] },
         };
         await exec(dt, action, undefined);
@@ -63,6 +69,8 @@ Output line
         const dt = new CliTest({ filepath: "" });
         const action: Action = {
             type: "exec",
+            filename,
+            actionLineNum,
             params: { step: false, cmd: ["FOO"] },
         };
         await should(exec(dt, action, undefined))
@@ -76,6 +84,8 @@ spawn FOO ENOENT`);
         const dt = new CliTest({ filepath: "" });
         const action: Action = {
             type: "exec",
+            filename,
+            actionLineNum,
             params: { step: false, cmd: ["ls", "BADFILE"] },
         };
         await should(exec(dt, action, undefined))

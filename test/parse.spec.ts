@@ -18,6 +18,8 @@ describe("parseFile", () => {
         should(actions).eql([
             {
                 type: "command",
+                filename: "<string>",
+                actionLineNum: 2,
                 params: {},
                 lines: [
                     "command one",

@@ -1,19 +1,20 @@
 import { CliTest } from "../clitest";
+import { ActionError } from "../error";
 import { Action } from "./action";
 
 export async function checkOutput(dt: CliTest, action: Action, lastOutput: string | undefined) {
     if (lastOutput === undefined) {
-        throw new Error(`A doctest 'output' action must follow a 'command' action`);
+        throw new ActionError(action, `A doctest 'output' action must follow a 'command' action`);
     }
     const reString = action.params.matchRegex;
     if (!reString) {
-        throw new Error(`'output' action must specify a 'matchRegex' parameter`);
+        throw new ActionError(action, `'output' action must specify a 'matchRegex' parameter`);
     }
     let regex;
     try {
         regex = RegExp(reString, action.params.regexFlags);
     } catch (err) {
-        throw new Error(`Invalid regular expression or flags in 'output' action: ${err.message}`);
+        throw new ActionError(action, `Invalid regular expression or flags in 'output' action: ${err.message}`);
     }
 
     if (!regex.test(lastOutput)) {

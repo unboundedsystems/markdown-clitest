@@ -29,6 +29,8 @@ export interface GenericParams extends CommonParams, AnyObject {}
 export interface Action {
     type: ActionType;
     params: GenericParams;
+    actionLineNum: number;
+    filename: string;
     lines?: string[];
 }
 
