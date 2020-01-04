@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/unboundedsystems/markdown-clitest/compare/v0.3.0...v0.4.0) (2020-01-04)
+
+
+### Features
+
+* Give filename and line number when action parameters are incorrect ([5fc4d3a](https://github.com/unboundedsystems/markdown-clitest/commit/5fc4d3a5b9f384b27e571783448ad9a4410f9d07))
+
 ## [0.3.0](https://github.com/unboundedsystems/markdown-clitest/compare/v0.2.0...v0.3.0) (2019-12-21)
 
 
