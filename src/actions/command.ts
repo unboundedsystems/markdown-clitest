@@ -39,8 +39,13 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
         }
     }
 
+    const script = `
+        set -o errexit
+        ${cmd}
+        printf "\n${marker}\n"
+        env`;
     try {
-        const pRet = execa(cmd + ` && printf "\n${marker}\n" && env`, {
+        const pRet = execa(script, {
             all: true,
             cwd: dt.cwd,
             env: dt.cmdEnv,
@@ -85,7 +90,14 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
         dt.lastCommandOutput = stdoutLines.join("");
 
     } catch (err) {
-        const msg = `\n\nCOMMAND FAILED:\n${err.all || err.message}\n`;
+        if (!err.message) throw err;
+
+        let msg = `\n\nCOMMAND FAILED: '${cmd}'`;
+        if (err.all == null) {
+            msg += `: ${err.message}`;
+        } else {
+            msg += ` (exit code ${err.exitCode})\nOutput:\n${err.all}`;
+        }
         return dt.error(msg);
     }
 }
