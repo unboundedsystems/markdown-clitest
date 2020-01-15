@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/unboundedsystems/markdown-clitest/compare/v0.4.0...v0.4.1) (2020-01-15)
+
+
+### Bug Fixes
+
+* Correctly parse indented code blocks ([7da8b22](https://github.com/unboundedsystems/markdown-clitest/commit/7da8b22c45b45321231d98916132b3b8577d3c7e))
+
 ## [0.4.0](https://github.com/unboundedsystems/markdown-clitest/compare/v0.3.0...v0.4.0) (2020-01-04)
 
 
