@@ -13,6 +13,7 @@ describe("output action", () => {
         const action: Action = {
             type: "output",
             filename,
+            indent: 0,
             actionLineNum,
             params: { step: false, matchRegex: "test" },
         };
@@ -25,6 +26,7 @@ describe("output action", () => {
         const action: Action = {
             type: "output",
             filename,
+            indent: 0,
             actionLineNum,
             params: { step: false, matchRegex: "(foo" },
         };
@@ -37,6 +39,7 @@ describe("output action", () => {
         const action: Action = {
             type: "output",
             filename,
+            indent: 0,
             actionLineNum,
             params: { step: false, matchRegex: "foo", regexFlags: "Q" },
         };
@@ -49,6 +52,7 @@ describe("output action", () => {
         const action: Action = {
             type: "output",
             filename,
+            indent: 0,
             actionLineNum,
             params: { step: false, matchRegex: "foo" },
         };

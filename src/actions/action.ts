@@ -32,6 +32,8 @@ export interface Action {
     actionLineNum: number;
     filename: string;
     lines?: string[];
+    /** Number of spaces of the indent */
+    indent: number;
 }
 
 export type ActionComplete = WithRequiredT<Action, "lines">;
@@ -40,6 +42,8 @@ export type NonActionType = "codetag" | "text";
 
 export interface NonAction {
     type: NonActionType;
+    /** Number of spaces of the indent */
+    indent: number;
 }
 
 export type LineType = Action | NonAction;
