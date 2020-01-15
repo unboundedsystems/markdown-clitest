@@ -41,6 +41,7 @@ describe("exec action", () => {
         const action: Action = {
             type: "exec",
             filename,
+            indent: 0,
             actionLineNum,
             params: { step: false, cmd: "echo 'Output line'; exit 5" },
         };
@@ -58,6 +59,7 @@ Output line
         const action: Action = {
             type: "exec",
             filename,
+            indent: 0,
             actionLineNum,
             params: { step: false, cmd: ["echo", "Some output"] },
         };
@@ -70,6 +72,7 @@ Output line
         const action: Action = {
             type: "exec",
             filename,
+            indent: 0,
             actionLineNum,
             params: { step: false, cmd: ["FOO"] },
         };
@@ -85,6 +88,7 @@ spawn FOO ENOENT`);
         const action: Action = {
             type: "exec",
             filename,
+            indent: 0,
             actionLineNum,
             params: { step: false, cmd: ["ls", "BADFILE"] },
         };

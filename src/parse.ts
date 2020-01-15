@@ -16,7 +16,7 @@ export function parseFile(dt: CliTest, lines: LineInfo[]) {
     for (const lineInfo of lines) {
         const { filename, lineNum, text }  = lineInfo;
         const oldParseState = parseState;
-        const lineType = parseLine(lineInfo);
+        const { indent, ...lineType } = parseLine(lineInfo);
         dt.parse(`${lineNum}: state=${parseState} type=${lineType.type} ${text}`);
         if (isAction(lineType) && lineType.params && Object.keys(lineType.params).length > 0) {
             dt.parse(`    params=${inspect(lineType.params)}`);
@@ -32,6 +32,7 @@ export function parseFile(dt: CliTest, lines: LineInfo[]) {
                             ...lineType,
                             actionLineNum: lineNum,
                             filename,
+                            indent: 0,
                             lines: [],
                         };
                         break;
@@ -45,6 +46,7 @@ export function parseFile(dt: CliTest, lines: LineInfo[]) {
                         actions.push({
                             ...lineType,
                             actionLineNum: lineNum,
+                            indent: 0,
                             filename,
                             lines: [],
                         });
@@ -58,7 +60,10 @@ export function parseFile(dt: CliTest, lines: LineInfo[]) {
             case "pre-capture":
                 if (!captureAction) throw new InternalError(`captureAction is null`);
                 switch (lineType.type) {
-                    case "codetag": parseState = "capture"; break;
+                    case "codetag":
+                        captureAction.indent = indent;
+                        parseState = "capture";
+                        break;
                     default:
                         if (text.trim() !== "") {
                             // tslint:disable-next-line: no-console
@@ -77,7 +82,7 @@ export function parseFile(dt: CliTest, lines: LineInfo[]) {
                         captureAction = undefined;
                         break;
                     default:
-                        captureAction.lines.push(text);
+                        captureAction.lines.push(text.slice(captureAction.indent));
                         break;
                 }
                 break;
@@ -96,15 +101,22 @@ export function parseFile(dt: CliTest, lines: LineInfo[]) {
     return actions;
 }
 
+function getIndent(line: string): number {
+    const m = line.match(/^( *)/);
+    return m ? m[1].length : 0;
+}
+
 function parseLine(lineInfo: LineInfo): LineType {
     const line = lineInfo.text;
+    const indent = getIndent(line);
+
     switch (true) {
         case /<!--\s*doctest.*-->/.test(line):
-            return parseClitestComment(lineInfo);
-        case /^```/.test(line):
-            return { type: "codetag" };
+            return parseClitestComment(lineInfo, indent);
+        case /^ *```/.test(line):
+            return { type: "codetag", indent };
         default:
-            return { type: "text" };
+            return { type: "text", indent };
     }
 }
 
@@ -112,9 +124,9 @@ function parseLine(lineInfo: LineInfo): LineType {
  * Format of a doctest comment is:
  * <!-- doctest ACTION [JSONPARAMS] -->
  */
-function parseClitestComment(lineInfo: LineInfo): Action {
+function parseClitestComment(lineInfo: LineInfo, indent: number): Action {
     const line = lineInfo.text;
-    const action: AnyObject = {};
+    const action: AnyObject = { indent };
 
     // Extract everything after "doctest"
     let m = line.match(/<!--\s*doctest(.*)-->/);
