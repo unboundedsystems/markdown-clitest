@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/unboundedsystems/markdown-clitest/compare/v0.4.2...v0.5.0) (2020-02-11)
+
+
+### Features
+
+* Capture both stdout and stderr from command for matching to output ([ba7ac56](https://github.com/unboundedsystems/markdown-clitest/commit/ba7ac56182434dd2e3c4947ab72afc4f3d7abcce))
+
 ### [0.4.2](https://github.com/unboundedsystems/markdown-clitest/compare/v0.4.1...v0.4.2) (2020-01-15)
 
 
