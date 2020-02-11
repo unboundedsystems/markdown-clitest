@@ -113,7 +113,7 @@ Output:
             "```",
             "echo To stderr 1>&2 ; echo To stdout",
             "```",
-            '<!-- doctest output { matchRegex: "^To stderr\\\\nTo stdout" } -->',
+            '<!-- doctest output { matchRegex: "^(To stderr\\\\nTo stdout\\\\n)|(To stdout\\\\nTo stderr\\\\n)" } -->',
             "more text",
         ].join("\n");
         const actions = await readString(dt, md);
