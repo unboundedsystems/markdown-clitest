@@ -43,8 +43,10 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
         });
 
         function processLine(line: string) {
-            if (stdout && line === marker + "\n") {
+            const m = line.match(new RegExp(`^(.*)${marker}\n`));
+            if (stdout && m) {
                 stdoutDone = true;
+                if (m[1].length > 0) outputLines.push(m[1]);
             } else if (stdout && stdoutDone) {
                 envLines.push(line);
             } else {
@@ -59,7 +61,7 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
     const script = `
         set -o errexit
         ${cmd}
-        printf "\n${marker}\n"
+        printf -- "${marker}\n"
         env`;
     try {
         const pRet = execa(script, {
@@ -88,7 +90,6 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
             await dt.userConfirm("Output OK?", { skipAllowed: false });
         }
 
-        outputLines.pop(); // Remove final \n we inserted
         dt.lastCommandOutput = outputLines.join("");
 
     } catch (err) {
