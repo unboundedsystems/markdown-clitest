@@ -1,6 +1,4 @@
 import db from "debug";
-// tslint:disable-next-line: no-var-requires
-const devNull = require("dev-null");
 import execa from "execa";
 import { CliTest, ConfirmAction } from "../clitest";
 import { Action } from "./action";
@@ -22,19 +20,38 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
     }
 
     let stdoutDone = false;
-    let buf = "";
     const envLines: string[] = [];
-    const stdoutLines: string[] = [];
+    const outputLines: string[] = [];
 
-    function processLine(line: string) {
-        if (line === marker + "\n") {
-            stdoutDone = true;
-        } else if (stdoutDone) {
-            envLines.push(line);
-        } else {
-            stdoutLines.push(line);
-            if (dt.interactive() || debugOutput.enabled) {
-                process.stdout.write(line);
+    function processStream(s: NodeJS.ReadableStream, outStream: NodeJS.WritableStream, stdout: boolean) {
+        let buf = "";
+
+        s.on("data", (chunk) => {
+            buf += chunk.toString();
+            while (buf.length) {
+                const idx = buf.indexOf("\n");
+                if (idx === -1) return;
+
+                const line = buf.slice(0, idx + 1);
+                buf = buf.slice(idx + 1);
+
+                processLine(line);
+            }
+        });
+        s.on("end", () => {
+            if (buf.length > 0) processLine(buf);
+        });
+
+        function processLine(line: string) {
+            if (stdout && line === marker + "\n") {
+                stdoutDone = true;
+            } else if (stdout && stdoutDone) {
+                envLines.push(line);
+            } else {
+                outputLines.push(line);
+                if (dt.interactive() || debugOutput.enabled) {
+                    outStream.write(line);
+                }
             }
         }
     }
@@ -59,23 +76,8 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
             throw new Error(`execa stdout stream is null??`);
         }
 
-        pRet.stderr.pipe((dt.interactive() || debugOutput.enabled) ? process.stderr : devNull());
-
-        pRet.stdout.on("data", (chunk) => {
-            buf += chunk.toString();
-            while (buf.length) {
-                const idx = buf.indexOf("\n");
-                if (idx === -1) return;
-
-                const line = buf.slice(0, idx + 1);
-                buf = buf.slice(idx + 1);
-
-                processLine(line);
-            }
-        });
-        pRet.stdout.on("end", () => {
-            if (buf.length > 0) processLine(buf);
-        });
+        processStream(pRet.stderr, process.stderr, false);
+        processStream(pRet.stdout, process.stdout, true);
 
         await pRet;
 
@@ -86,8 +88,8 @@ export async function runCommand(dt: CliTest, cmd: string, _action: Action) {
             await dt.userConfirm("Output OK?", { skipAllowed: false });
         }
 
-        stdoutLines.pop(); // Remove final \n we inserted
-        dt.lastCommandOutput = stdoutLines.join("");
+        outputLines.pop(); // Remove final \n we inserted
+        dt.lastCommandOutput = outputLines.join("");
 
     } catch (err) {
         if (!err.message) throw err;

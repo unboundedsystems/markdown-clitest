@@ -90,6 +90,36 @@ Output:
         await runActions(dt, actions);
     });
 
+    it("should validate output from stderr", async () => {
+        const dt = new CliTest({ filepath: "" });
+        const md = [
+            "Some text",
+            "<!-- doctest command -->",
+            "```",
+            "echo Some output 1>&2",
+            "```",
+            '<!-- doctest output { matchRegex: "Some" } -->',
+            "more text",
+        ].join("\n");
+        const actions = await readString(dt, md);
+        await runActions(dt, actions);
+    });
+
+    it("should validate mixed output from stdout and stderr", async () => {
+        const dt = new CliTest({ filepath: "" });
+        const md = [
+            "Some text",
+            "<!-- doctest command -->",
+            "```",
+            "echo To stderr 1>&2 ; echo To stdout",
+            "```",
+            '<!-- doctest output { matchRegex: "^To stderr\\\\nTo stdout" } -->',
+            "more text",
+        ].join("\n");
+        const actions = await readString(dt, md);
+        await runActions(dt, actions);
+    });
+
     it("should validate exact output", async () => {
         const dt = new CliTest({ filepath: "" });
         const md = [
