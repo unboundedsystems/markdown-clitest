@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.1](https://github.com/unboundedsystems/markdown-clitest/compare/v0.5.0...v0.5.1) (2020-02-11)
+
+
+### Bug Fixes
+
+* Allow either ordering of output in stdout/stderr test ([756c02c](https://github.com/unboundedsystems/markdown-clitest/commit/756c02c6f68ef144329b53adc9619f9d3ae257e4))
+* Stderr output matching not working correctly ([fc93290](https://github.com/unboundedsystems/markdown-clitest/commit/fc932908e0987c59b29c0e5b63022a389098e2a7))
+
 ## [0.5.0](https://github.com/unboundedsystems/markdown-clitest/compare/v0.4.2...v0.5.0) (2020-02-11)
 
 
