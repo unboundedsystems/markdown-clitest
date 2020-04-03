@@ -71,7 +71,7 @@
     "@types/node": "12.12.41",
     "execa": "3.4.0",
     "mocha": "6.2.2",
-    "nyc": "14.1.1",
+    "nyc": "15.0.1",
     "should": "13.2.3",
     "standard-version": "7.0.1",
     "stdout-stderr": "0.1.9",
