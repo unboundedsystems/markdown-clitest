@@ -60,7 +60,7 @@
     "json5": "^2.1.1",
     "source-map-support": "^0.5.16",
     "ts-custom-error": "^3.1.1",
-    "tslib": "^1.9.2",
+    "tslib": "^2.0.0",
     "type-ops": "^3.0.1"
   },
   "devDependencies": {
