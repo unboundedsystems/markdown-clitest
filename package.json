@@ -77,6 +77,6 @@
     "stdout-stderr": "0.1.13",
     "string-to-stream": "3.0.1",
     "tslint": "5.20.1",
-    "typescript": "3.8.3"
+    "typescript": "3.9.3"
   }
 }
