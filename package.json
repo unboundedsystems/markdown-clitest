@@ -68,7 +68,7 @@
     "@types/fs-extra": "8.1.1",
     "@types/json5": "0.0.30",
     "@types/mocha": "7.0.2",
-    "@types/node": "12.12.54",
+    "@types/node": "12.12.56",
     "execa": "3.4.0",
     "mocha": "7.2.0",
     "nyc": "15.1.0",

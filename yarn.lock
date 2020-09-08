@@ -258,10 +258,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.3.tgz#27b3f40addaf2f580459fdb405222685542f907a"
   integrity sha512-3SiLAIBkDWDg6vFo0+5YJyHPWU9uwu40Qe+v+0MH8wRKYBimHvvAOyk3EzMrD/TrIlLYfXrqDqrg913PynrMJQ==
 
-"@types/node@12.12.54":
-  version "12.12.54"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.54.tgz#a4b58d8df3a4677b6c08bfbc94b7ad7a7a5f82d1"
-  integrity sha512-ge4xZ3vSBornVYlDnk7yZ0gK6ChHf/CHB7Gl1I0Jhah8DDnEQqBzgohYG4FX4p81TNirSETOiSyn+y1r9/IR6w==
+"@types/node@12.12.56":
+  version "12.12.56"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.56.tgz#83591a89723d8ec3eaf722137e1784a7351edb6c"
+  integrity sha512-8OdIupOIZtmObR13fvGyTvpcuzKmMugkATeVcfNwCjGtHxhjEKmOvLqXwR8U9VOtNnZ4EXaSfNiLVsPinaCXkQ==
 
 "@usys/collections-ts@^0.0.2":
   version "0.0.2"
