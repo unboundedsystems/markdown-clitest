@@ -10,6 +10,3 @@ sudo: false
 
 cache: yarn
 
-branches:
-  except:
-    - /^renovate\//
