@@ -52,7 +52,7 @@
     "md"
   ],
   "dependencies": {
-    "@adpt/utils": "0.4.0-next.10",
+    "@adpt/utils": "0.4.0-next.12",
     "chalk": "^3.0.0",
     "commander": "^6.0.0",
     "debug": "^4.1.0",
