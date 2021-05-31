@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adpt/utils@0.4.0-next.18":
-  version "0.4.0-next.18"
-  resolved "https://registry.yarnpkg.com/@adpt/utils/-/utils-0.4.0-next.18.tgz#cdfa540dec4f369b0b968ceeec0ab21c5fdbe7b9"
-  integrity sha512-oSFY5i90d1jT0xKlgOuXvCy+30bj13hzOslkUfjrJiOEDZr2J1zPDa4OmY5nVV8bR7TFBsMcCfAw1PPFTX7+OQ==
+"@adpt/utils@0.4.0-next.19":
+  version "0.4.0-next.19"
+  resolved "https://registry.yarnpkg.com/@adpt/utils/-/utils-0.4.0-next.19.tgz#c4d4ff9b20698ef6d81847d12fe5b9927181c936"
+  integrity sha512-kVF07SO8NsC2iAXHP8aXAToW9piHSP6szJtjgz0jUeDrYhwv+aRjU6fg0CqTJ5iTnI5J++26vlDybB8Z0P7feQ==
   dependencies:
     "@types/debug" "4.1.5"
     "@types/fs-extra" "8.1.1"
