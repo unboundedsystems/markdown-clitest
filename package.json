@@ -64,7 +64,7 @@
     "type-ops": "^3.0.1"
   },
   "devDependencies": {
-    "@types/debug": "4.1.10",
+    "@types/debug": "4.1.12",
     "@types/fs-extra": "9.0.13",
     "@types/json5": "0.0.30",
     "@types/mocha": "7.0.2",
